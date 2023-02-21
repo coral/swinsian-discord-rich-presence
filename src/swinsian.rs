@@ -39,6 +39,20 @@ impl SwinsianResponse {
 
         Some(t)
     }
+
+    pub fn artist(&self) -> String {
+        if self.artist == "missing value" {
+            return "".to_string();
+        }
+        self.artist.clone()
+    }
+
+    pub fn album(&self) -> String {
+        if self.album == "missing value" {
+            return "".to_string();
+        }
+        self.album.clone()
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

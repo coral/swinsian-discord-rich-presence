@@ -59,7 +59,7 @@ fn update_presence(
     client: &mut impl DiscordIpc,
     last_updated: &mut Instant,
 ) -> Result<(), error::SwinsianError> {
-    let state: String = format!("{} - {}", data.artist, data.album)
+    let state: String = format!("{} - {}", data.artist(), data.album())
         .chars()
         .take(128)
         .collect();
