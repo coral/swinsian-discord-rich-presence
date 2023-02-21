@@ -9,7 +9,7 @@ Always bothered me that Spotify gets the royal treatment, time for the quick and
 
 ## Example
 
-![https://github.com/coral/swinsian-discord-rich-presence/blob/master/assets/example.png?raw=true]
+![example image, sorry screenreaders, it's hard to describe](/assets/example.png)
 
 ## Usage
 
