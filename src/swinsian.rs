@@ -27,9 +27,6 @@ impl SwinsianResponse {
     #[allow(non_snake_case)]
     pub fn calculate_POGRESS(&self) -> Option<i64> {
         let position: f32 = self.pos.parse().ok()?;
-        //let duration: f32 = self.dur.parse().ok()?;
-
-        //let diff = Duration::from_secs((duration - position) as u64);
 
         let t = SystemTime::now()
             .duration_since(SystemTime::UNIX_EPOCH)
