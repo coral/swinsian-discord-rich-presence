@@ -1,17 +1,19 @@
 use crate::error::SwinsianError;
 use serde::{Deserialize, Serialize};
+use std::io::Write;
+use std::process::{Command, Stdio};
 use std::time::SystemTime;
-use std::{ops::Add, process::Command, time::Duration};
+use std::{ops::Add, time::Duration};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Request {
-    pub swinsian: Option<Swinsian>,
+    pub swinsian: Option<SwinsianResponse>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Swinsian {
+pub struct SwinsianResponse {
     pub format: String,
     pub state: State,
     pub song: String,
@@ -21,7 +23,7 @@ pub struct Swinsian {
     pub dur: String,
 }
 
-impl Swinsian {
+impl SwinsianResponse {
     #[allow(non_snake_case)]
     pub fn calculate_POGRESS(&self) -> Option<i64> {
         let position: f32 = self.pos.parse().ok()?;
@@ -54,18 +56,49 @@ impl Default for State {
     }
 }
 
-pub fn get() -> Result<Swinsian, SwinsianError> {
-    let r = Command::new("osascript").arg("swinsian.scpt").output()?;
+pub struct Swinsian {
+    path: String,
+}
 
-    if r.stdout.is_empty() {
-        let s = String::from_utf8_lossy(&r.stderr);
-        return Err(SwinsianError::OsascriptOutputEmpty(format!("{}", s)));
+impl Swinsian {
+    pub fn new() -> Result<Swinsian, SwinsianError> {
+        let script = include_bytes!("../swinsian-apple-script.scpt");
+        let compile_path = "/tmp/compiled-swinsian-apple-script.scpt".to_string();
+
+        let mut osacompile = Command::new("osacompile")
+            .stdin(Stdio::piped())
+            .stdout(Stdio::piped())
+            .arg("-o")
+            .arg(&compile_path)
+            .spawn()?;
+
+        let osacompile_stdin = osacompile.stdin.as_mut().unwrap();
+        osacompile_stdin.write_all(script)?;
+        drop(osacompile_stdin);
+
+        let output = osacompile.wait_with_output()?;
+
+        if !output.stderr.is_empty() {
+            let s = String::from_utf8_lossy(&output.stderr);
+            return Err(SwinsianError::OsascriptOutputEmpty(format!("{}", s)));
+        }
+
+        Ok(Swinsian { path: compile_path })
     }
 
-    let p: Request = serde_json::from_slice(&r.stdout)?;
+    pub fn get(&self) -> Result<SwinsianResponse, SwinsianError> {
+        let r = Command::new("osascript").arg(&self.path).output()?;
 
-    match p.swinsian {
-        Some(v) => Ok(v),
-        None => Err(SwinsianError::NoData),
+        if r.stdout.is_empty() {
+            let s = String::from_utf8_lossy(&r.stderr);
+            return Err(SwinsianError::OsascriptOutputEmpty(format!("{}", s)));
+        }
+
+        let p: Request = serde_json::from_slice(&r.stdout)?;
+
+        match p.swinsian {
+            Some(v) => Ok(v),
+            None => Err(SwinsianError::NoData),
+        }
     }
 }

@@ -5,6 +5,9 @@ use std::{
     thread::sleep,
     time::{Duration, Instant},
 };
+extern crate pretty_env_logger;
+#[macro_use]
+extern crate log;
 
 enum AppState {
     Active,
@@ -13,10 +16,14 @@ enum AppState {
 
 #[allow(unreachable_code)]
 fn main() -> Result<(), error::SwinsianError> {
-    println!("starting");
+    pretty_env_logger::init();
+
+    info!("compiling applescript");
+    let player = swinsian::Swinsian::new()?;
 
     let mut client = DiscordIpcClient::new("1076384656850698240")?;
 
+    info!("connecting to discord");
     loop {
         if client.connect().is_ok() {
             break;
@@ -25,11 +32,13 @@ fn main() -> Result<(), error::SwinsianError> {
         continue;
     }
 
+    info!("connected, starting activity feeding");
+
     let mut appstate = AppState::Active;
     let mut last_updated = Instant::now();
 
     loop {
-        let data = swinsian::get()?;
+        let data = player.get()?;
 
         match data.state {
             swinsian::State::Playing => {
@@ -46,7 +55,7 @@ fn main() -> Result<(), error::SwinsianError> {
 }
 
 fn update_presence(
-    data: swinsian::Swinsian,
+    data: swinsian::SwinsianResponse,
     client: &mut impl DiscordIpc,
     last_updated: &mut Instant,
 ) -> Result<(), error::SwinsianError> {
@@ -55,11 +64,11 @@ fn update_presence(
         .take(128)
         .collect();
     let details: String = data.song.chars().take(128).collect();
-    let large_text: String = format!("Listening with Swinsian");
+    let large_text: String = format!("Listening to {} with Swinsian", data.format);
     let assets = activity::Assets::new()
         .large_text(large_text.as_str())
         .large_image("sw2")
-        .small_text("Playing");
+        .small_text("Listening");
 
     let mut payload = activity::Activity::new()
         .state(&state)
