@@ -7,7 +7,9 @@ Always bothered me that Spotify gets the royal treatment, time for the quick and
 - Tells Discord "yo bro, this is the good stuff"
 - Discord goes "ok man, sounds good to me"
 
-![/assets/example.png]
+## Example
+
+![https://github.com/coral/swinsian-discord-rich-presence/blob/master/assets/example.png?raw=true]
 
 ## Usage
 
