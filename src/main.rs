@@ -45,6 +45,10 @@ fn main() -> Result<(), error::SwinsianError> {
                         appstate = AppState::Active;
                         update_presence(data, &mut client, &mut last_updated)
                     }
+                    swinsian::State::Paused => {
+                        appstate = AppState::Active;
+                        update_presence(data, &mut client, &mut last_updated)
+                    }
                     _ => clear(&mut client, &mut last_updated, &mut appstate),
                 }?;
             }
@@ -83,13 +87,12 @@ fn update_presence(
         .details(&details)
         .assets(assets.clone());
 
-    match data.calculate_POGRESS() {
-        Some(v) => {
+    if let swinsian::State::Playing = data.state {
+        if let Some(v) = data.calculate_POGRESS() {
             let timestamp = activity::Timestamps::new().start(v);
             payload = payload.timestamps(timestamp);
         }
-        None => {}
-    };
+    }
 
     if Instant::now().duration_since(*last_updated).as_secs() >= 4 {
         if client.set_activity(payload).is_err() {
