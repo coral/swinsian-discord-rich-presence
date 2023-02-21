@@ -4,6 +4,8 @@ use thiserror::Error;
 pub enum SwinsianError {
     #[error("osascript error")]
     OsascriptError(#[from] std::io::Error),
+    #[error("Applescript output empty, stderr: `{0}`")]
+    OsascriptOutputEmpty(String),
     #[error("swinsian parse error")]
     SwinsianParseError(#[from] serde_json::Error),
     #[error("no data in request")]

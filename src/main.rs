@@ -16,7 +16,6 @@ fn main() -> Result<(), error::SwinsianError> {
     println!("starting");
 
     let mut client = DiscordIpcClient::new("1076384656850698240")?;
-    client.connect()?;
 
     loop {
         if client.connect().is_ok() {
@@ -61,10 +60,19 @@ fn update_presence(
         .large_text(large_text.as_str())
         .large_image("sw2")
         .small_text("Playing");
+
     let mut payload = activity::Activity::new()
         .state(&state)
         .details(&details)
         .assets(assets.clone());
+
+    match data.calculate_POGRESS() {
+        Some(v) => {
+            let timestamp = activity::Timestamps::new().end(v);
+            payload = payload.timestamps(timestamp);
+        }
+        None => {}
+    };
 
     if Instant::now().duration_since(*last_updated).as_secs() >= 4 {
         if client.set_activity(payload).is_err() {

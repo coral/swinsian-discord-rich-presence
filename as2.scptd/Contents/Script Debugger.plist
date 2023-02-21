@@ -67,9 +67,9 @@ XWJtdHV3fIeQn6OrAAAAAAAAAQEAAAAAAAAAGAAAAAAAAAAAAAAAAAAAALQ=</string>
 						<dict>
 							<key>3</key>
 							<array>
-								<integer>382</integer>
-								<integer>484</integer>
-								<integer>192</integer>
+								<integer>386</integer>
+								<integer>489</integer>
+								<integer>194</integer>
 							</array>
 							<key>5</key>
 							<array>
@@ -88,7 +88,10 @@ XWJtdHV3fIeQn6OrAAAAAAAAAQEAAAAAAAAAGAAAAAAAAAAAAAAAAAAAALQ=</string>
 							<string>mode.best</string>
 						</array>
 						<key>positions2</key>
-						<dict/>
+						<dict>
+							<key>positions</key>
+							<dict/>
+						</dict>
 						<key>prettyPrint</key>
 						<false/>
 						<key>textState</key>
@@ -101,7 +104,7 @@ XWJtdHV3fIeQn6OrAAAAAAAAAQEAAAAAAAAAGAAAAAAAAAAAAAAAAAAAALQ=</string>
 										<key>length</key>
 										<integer>0</integer>
 										<key>location</key>
-										<integer>210</integer>
+										<integer>150</integer>
 									</dict>
 								</array>
 								<key>LNSTextViewShowInvisibles</key>
@@ -113,7 +116,7 @@ XWJtdHV3fIeQn6OrAAAAAAAAAQEAAAAAAAAAGAAAAAAAAAAAAAAAAAAAALQ=</string>
 								<key>LNSTextViewWrapLines</key>
 								<true/>
 								<key>LNSVisibleRect</key>
-								<string>{{0, 0}, {441.5, 352.5}}</string>
+								<string>{{0, 0}, {441.5, 356.5}}</string>
 							</dict>
 						</dict>
 					</dict>
@@ -156,9 +159,9 @@ XWJtdHV3fIeQn6OrAAAAAAAAAQEAAAAAAAAAGAAAAAAAAAAAAAAAAAAAALQ=</string>
 						<dict>
 							<key>3</key>
 							<array>
-								<integer>384</integer>
-								<integer>350</integer>
-								<integer>347</integer>
+								<integer>388</integer>
+								<integer>353</integer>
+								<integer>351</integer>
 							</array>
 						</dict>
 					</dict>
@@ -195,8 +198,8 @@ XWJtdHV3fIeQn6OrAAAAAAAAAQEAAAAAAAAAGAAAAAAAAAAAAAAAAAAAALQ=</string>
 						<dict>
 							<key>2</key>
 							<array>
-								<integer>318</integer>
-								<integer>772</integer>
+								<integer>252</integer>
+								<integer>613</integer>
 							</array>
 						</dict>
 					</dict>
@@ -218,7 +221,7 @@ XWJtdHV3fIeQn6OrAAAAAAAAAQEAAAAAAAAAGAAAAAAAAAAAAAAAAAAAALQ=</string>
 								<key>length</key>
 								<integer>0</integer>
 								<key>location</key>
-								<integer>186</integer>
+								<integer>351</integer>
 							</dict>
 						</array>
 						<key>LNSTextViewShowInvisibles</key>
@@ -230,7 +233,7 @@ XWJtdHV3fIeQn6OrAAAAAAAAAQEAAAAAAAAAGAAAAAAAAAAAAAAAAAAAALQ=</string>
 						<key>LNSTextViewWrapLines</key>
 						<false/>
 						<key>LNSVisibleRect</key>
-						<string>{{0, 0}, {1248.5, 1057}}</string>
+						<string>{{0, 0}, {1522.5, 1068}}</string>
 						<key>ShowLineNumbers</key>
 						<false/>
 						<key>showCodeCoverage</key>
@@ -248,9 +251,9 @@ XWJtdHV3fIeQn6OrAAAAAAAAAQEAAAAAAAAAGAAAAAAAAAAAAAAAAAAAALQ=</string>
 				<key>tabHeights</key>
 				<dict>
 					<key>tab.bps</key>
-					<real>433</real>
+					<real>732.5</real>
 					<key>tab.debug</key>
-					<real>876.5</real>
+					<real>456.5</real>
 					<key>tab.rsrcs</key>
 					<real>433</real>
 				</dict>
@@ -259,7 +262,7 @@ XWJtdHV3fIeQn6OrAAAAAAAAAQEAAAAAAAAAGAAAAAAAAAAAAAAAAAAAALQ=</string>
 				<key>windowControllerID</key>
 				<string>99DF9A37-8A48-4D3D-8DB4-017DFC20105A-15429-000022F9234E6C3E</string>
 				<key>windowFrame</key>
-				<string>283 150 1752 1145 0 0 2560 1415 </string>
+				<string>121 180 2026 1156 0 0 2560 1415 </string>
 			</dict>
 		</dict>
 		<key>windowControllers</key>
@@ -274,7 +277,7 @@ XWJtdHV3fIeQn6OrAAAAAAAAAQEAAAAAAAAAGAAAAAAAAAAAAAAAAAAAALQ=</string>
 					<key>miniaturized</key>
 					<false/>
 					<key>windowFrame</key>
-					<string>283 150 1752 1145 0 0 2560 1415 </string>
+					<string>121 180 2026 1156 0 0 2560 1415 </string>
 				</dict>
 			</dict>
 		</array>
