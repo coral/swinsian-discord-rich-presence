@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use std::io::Write;
 use std::process::{Command, Stdio};
 use std::time::SystemTime;
-use std::{ops::Add, time::Duration};
+use std::{ops::Sub, time::Duration};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -27,14 +27,14 @@ impl SwinsianResponse {
     #[allow(non_snake_case)]
     pub fn calculate_POGRESS(&self) -> Option<i64> {
         let position: f32 = self.pos.parse().ok()?;
-        let duration: f32 = self.dur.parse().ok()?;
+        //let duration: f32 = self.dur.parse().ok()?;
 
-        let diff = Duration::from_secs((duration - position) as u64);
+        //let diff = Duration::from_secs((duration - position) as u64);
 
         let t = SystemTime::now()
             .duration_since(SystemTime::UNIX_EPOCH)
             .ok()?
-            .add(diff)
+            .sub(Duration::from_secs(position as u64))
             .as_secs() as i64;
 
         Some(t)

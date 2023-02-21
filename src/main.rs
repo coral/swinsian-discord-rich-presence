@@ -85,7 +85,7 @@ fn update_presence(
 
     match data.calculate_POGRESS() {
         Some(v) => {
-            let timestamp = activity::Timestamps::new().end(v);
+            let timestamp = activity::Timestamps::new().start(v);
             payload = payload.timestamps(timestamp);
         }
         None => {}
