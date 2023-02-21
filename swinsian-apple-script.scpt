@@ -17,8 +17,13 @@ end psm
 
 
 if is_running("Swinsian") then
+	set output to "denis"
 	tell application "Swinsian"
 		set wab to my psm(player state)
+		if wab = "stopped" then
+			set output to "{}"
+			return output
+		end if
 		set pos to player position
 		set sfileformat to kind of current track
 		set strackname to name of current track
@@ -27,6 +32,8 @@ if is_running("Swinsian") then
 		set drr to duration of current track
 		set sws to "{\"format\": \"" & sfileformat & "\",\"state\": \"" & wab & "\",\"song\": \"" & strackname & "\",\"artist\": \"" & strackartist & "\",\"album\": \"" & strackalbum & "\",\"pos\": \"" & pos & "\",\"dur\": \"" & drr & "\"}"
 	end tell
+	set output to "{ \"swinsian\": " & sws & "}"
+else
+	set output to "{}"
 end if
 
-set output to "{ \"swinsian\": " & sws & "}"

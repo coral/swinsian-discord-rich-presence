@@ -38,15 +38,23 @@ fn main() -> Result<(), error::SwinsianError> {
     let mut last_updated = Instant::now();
 
     loop {
-        let data = player.get()?;
-
-        match data.state {
-            swinsian::State::Playing => {
-                appstate = AppState::Active;
-                update_presence(data, &mut client, &mut last_updated)
+        match player.get() {
+            Ok(data) => {
+                match data.state {
+                    swinsian::State::Playing => {
+                        appstate = AppState::Active;
+                        update_presence(data, &mut client, &mut last_updated)
+                    }
+                    _ => clear(&mut client, &mut last_updated, &mut appstate),
+                }?;
             }
-            _ => clear(&mut client, &mut last_updated, &mut appstate),
-        }?;
+            Err(e) => match e {
+                error::SwinsianError::NoData => {
+                    clear(&mut client, &mut last_updated, &mut appstate)?;
+                }
+                _ => return Err(e),
+            },
+        }
 
         sleep(Duration::from_secs(5));
     }
