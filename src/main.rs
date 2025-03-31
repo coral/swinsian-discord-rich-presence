@@ -76,15 +76,16 @@ fn update_presence(
         .take(128)
         .collect();
     let details: String = data.song.chars().take(128).collect();
-    let large_text: String = format!("Listening to {} with Swinsian", data.format);
+    //let large_text: String = format!("Listening to {} with Swinsian", data.format);
     let assets = activity::Assets::new()
-        .large_text(large_text.as_str())
+        //.large_text(large_text.as_str())
         .large_image("sw2")
         .small_text("Listening");
 
     let mut payload = activity::Activity::new()
         .state(&state)
         .details(&details)
+        .activity_type(activity::ActivityType::Listening)
         .assets(assets.clone());
 
     if let swinsian::State::Playing = data.state {

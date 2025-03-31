@@ -85,7 +85,6 @@ impl Swinsian {
 
         let osacompile_stdin = osacompile.stdin.as_mut().unwrap();
         osacompile_stdin.write_all(script)?;
-        drop(osacompile_stdin);
 
         let output = osacompile.wait_with_output()?;
 
